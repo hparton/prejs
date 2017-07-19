@@ -39,7 +39,15 @@ class PreJS {
 
     if (loader === 'image') {
       this._loadImage(item)
+      return
     }
+
+    if (loader === 'audio') {
+      this._loadAudio(item)
+      return
+    }
+
+    console.error('Not a valid loader type')
   }
 
   _loadImage (item) {
@@ -56,6 +64,21 @@ class PreJS {
     img.src = item
   }
 
+  _loadAudio (item) {
+    let audio = new Audio()
+
+    audio.addEventListener('canplaythrough', () => {
+      this._itemLoaded(item)
+    }, false)
+
+    audio.addEventListener('error', () => {
+      this._emitError(item)
+    })
+
+    audio.src = item
+    audio.load()
+  }
+
   _emitError (item) {
     this.trigger('error', item)
     this.itemsLoaded += 1
@@ -64,15 +87,15 @@ class PreJS {
   }
 
   _itemLoaded (item) {
-    this.trigger('loaded', item)
     this.itemsLoaded += 1
     this._updateProgress()
     this._checkComplete()
+    this.trigger('loaded', item)
   }
 
   _checkComplete () {
     if (this.itemsLoaded === this.total) {
-      this.trigger('complete', this.items)
+      this.trigger('complete', this.itemsToLoad)
     }
   }
 

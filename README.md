@@ -88,7 +88,7 @@ pre.on('start', () => {
 
 pre.on('loaded', (item) => {
 	console.log('loaded:', item)
-	// pre.percentage is available if you wanted to show a custom loading indicator, you can update it here
+	// pre.progress (0 - 1) is available if you wanted to show a custom loading indicator, you can update it here
 })
 
 pre.on('complete', () => {
