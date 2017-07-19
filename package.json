@@ -1,0 +1,22 @@
+{
+  "name": "prejs",
+  "version": "1.0.6",
+  "description": "Simple ES6 Vanilla JS preloader class for images/anything you want.",
+  "main": "loader.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+  	"simple",
+  	"lightweight",
+  	"preloading",
+  	"preloader",
+  	"load",
+  	"loading",
+  	"vanilla",
+  	"es6"
+  ],
+  "license": "MIT",
+  "author": "Harry Parton <hparton@hotmail.co.uk>",
+  "license": "ISC"
+}
