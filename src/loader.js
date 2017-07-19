@@ -72,7 +72,7 @@ class PreJS {
 
   _checkComplete () {
     if (this.itemsLoaded === this.total) {
-      this.trigger('complete')
+      this.trigger('complete', this.items)
     }
   }
 

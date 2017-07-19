@@ -1,6 +1,6 @@
 {
   "name": "prejs",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Simple ES6 Vanilla JS preloader class for images/anything you want.",
   "main": "./dist/loader.js",
   "scripts": {

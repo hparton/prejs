@@ -33,7 +33,7 @@ pre.load(imageUrls, 'image');
 | start     |              | Fired when attempting to load the first item							              |
 | loaded    | url (string) | Fired after each item is loaded		                                              |
 | error     | url (string) | Fired after an item fails to load correctly										  |
-| complete  |   		   | Fired when all items loaded or errored out                                           |
+| complete  | urls (array) | Fired when all items loaded or errored out                                           |
 
 
 ## API
