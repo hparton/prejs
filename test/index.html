@@ -7,6 +7,24 @@
 <body>
 <span class="img-percent">Image: <span class="img-percentage">0</span>%</span>
 <span class="audio-percent">Audio: <span class="audio-percentage">0</span>%</span>
+<div class="loader-example">
+	<div class="bar js-bar"></div>
+</div>
 <script src="test-processed.js"></script>
 </body>
 </html>
+
+<style>
+	.loader-example {
+		display: block;
+		width: 100%;
+		position: relative;
+	}
+
+	.bar {
+		height: 30px;
+		background: black;
+		position: absolute;
+		left: 0;
+	}
+</style>

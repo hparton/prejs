@@ -10,7 +10,7 @@ class PreJS {
   load (items, type) {
     this.trigger('start', items)
     this._reset(items)
-
+    console.log(this.itemsToLoad)
     for (var i = 0; i < this.itemsToLoad.length; i++) {
       let item = this.itemsToLoad[i]
       this._loadItem(item, type)
@@ -18,10 +18,23 @@ class PreJS {
   }
 
   _reset (items) {
-    this.itemsToLoad = items
+    this.itemsToLoad = this._setupItems(items)
     this.total = this.itemsToLoad.length
     this.itemsLoaded = 0
     this.progress = 0
+  }
+
+  _setupItems (items) {
+    let processedItems = []
+
+    for (var i = 0; i < items.length; i++) {
+      processedItems.push({
+        url: items[i],
+        progress: 0
+      })
+    }
+
+    return processedItems
   }
 
   _loadItem (item, loader) {
@@ -38,44 +51,60 @@ class PreJS {
     }
 
     if (loader === 'image') {
-      this._loadImage(item)
+      this._genericLoader(item)
       return
     }
 
     if (loader === 'audio') {
-      this._loadAudio(item)
+      this._genericLoader(item)
       return
     }
 
     console.error('Not a valid loader type')
   }
 
+  _genericLoader (item) {
+    let xhr = new XMLHttpRequest()
+
+    xhr.addEventListener('load', this._itemProgress(item, 1))
+
+    xhr.addEventListener('progress', (e) => {
+      if (e.lengthComputable) {
+        let percentage = e.loaded / e.total
+        this._itemProgress(item, percentage)
+      }
+    })
+
+    xhr.open('GET', item.url)
+    xhr.send()
+  }
+
   _loadImage (item) {
     var img = new Image()
 
     img.onload = () => {
-      this._itemLoaded(item)
+      this._itemProgress(item, 1)
     }
 
     img.onerror = () => {
       this._emitError(item)
     }
 
-    img.src = item
+    img.src = item.url
   }
 
   _loadAudio (item) {
     let audio = new Audio()
 
     audio.addEventListener('canplaythrough', () => {
-      this._itemLoaded(item)
+      this._itemProgress(item, 1)
     }, false)
 
     audio.addEventListener('error', () => {
       this._emitError(item)
     })
 
-    audio.src = item
+    audio.src = item.url
     audio.load()
   }
 
@@ -86,9 +115,17 @@ class PreJS {
     this._checkComplete()
   }
 
+  _itemProgress (item, progress) {
+    item.progress = progress
+    this._updateProgress()
+
+    if (item.progress === 1) {
+      this._itemLoaded(item)
+    }
+  }
+
   _itemLoaded (item) {
     this.itemsLoaded += 1
-    this._updateProgress()
     this._checkComplete()
     this.trigger('loaded', item)
   }
@@ -100,7 +137,13 @@ class PreJS {
   }
 
   _updateProgress () {
-    this.progress = mapRange(this.itemsLoaded, 0, this.total, 0, 1)
+    let overallProgress = 0;
+
+    this.itemsToLoad.map(item => {
+      overallProgress += item.progress
+    })
+
+    this.progress = mapRange(overallProgress, 0, this.total, 0, 1)
   }
 
   loaded (item) {
@@ -120,8 +163,13 @@ class PreJS {
   }
 }
 
+function limitRange (val, low, high) {
+  return Math.min(Math.max(parseInt(val), low), high)
+}
+
 function mapRange (value, low1, high1, low2, high2) {
   return low2 + (high2 - low2) * (value - low1) / (high1 - low1)
 }
+
 
 export default PreJS

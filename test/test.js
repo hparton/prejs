@@ -29,6 +29,8 @@ imgPreload.on('loaded', (item) => {
 audioPreload.on('loaded', (item) => {
 	bark(item, 'Audio Loaded: ')
 	$audio.innerHTML = audioPreload.progress * 100
+
+	document.querySelector('.js-bar').style.width = audioPreload.progress * 100 + '%'
 })
 
 imgPreload.on('error', (item) => bark(item, 'Image Errored: '))
