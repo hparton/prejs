@@ -1,6 +1,13 @@
 {
   "name": "prejs",
-  "version": "1.1.1",
+  "version": "1.1.3",
+  "license": "ISC",
+  "author": "Harry Parton <hparton@hotmail.co.uk>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hparton/prejs.git"
+  },
+  "bugs": "https://github.com/HParton/Housekeeping-cli/issues",
   "description": "Simple ES6 Vanilla JS preloader class for images/anything you want.",
   "main": "./dist/loader.js",
   "scripts": {
@@ -17,8 +24,6 @@
     "vanilla",
     "es6"
   ],
-  "license": "ISC",
-  "author": "Harry Parton <hparton@hotmail.co.uk>",
   "devDependencies": {
     "babel-cli": "^6.24.1",
     "babel-preset-es2015": "^6.24.1"
