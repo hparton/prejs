@@ -28,12 +28,13 @@ pre.load(imageUrls, 'image');
 
 ## Events
 
-| Event     | Returns      | Description                                                                          |
-|-----------|--------------|--------------------------------------------------------------------------------------|
-| start     |              | Fired when attempting to load the first item							              |
-| loaded    | url (string) | Fired after each item is loaded		                                              |
-| error     | url (string) | Fired after an item fails to load correctly										  |
-| complete  | urls (array) | Fired when all items loaded or errored out                                           |
+| Event     | Returns       		| Description                                                                          |
+|-----------|-----------------------|--------------------------------------------------------------------------------------|
+| start     |               		| Fired when attempting to load the first item							               |
+| loaded    | item (object)  		| Fired after each item is loaded		                                               |
+| progress  | progress 0-1 (number) | Fired whenever the progress of the loader increases	                      	       |
+| error     | item (object)  		| Fired after an item fails to load correctly									 	   |
+| complete  | items (array)  		| Fired when all items loaded or errored out                                           |
 
 
 ## API
@@ -43,6 +44,9 @@ Accepts an array of urls and a loader type to handle them.
 
 Built in loaders are:
 - 'image' : Loads .jpg, .png, .svg, .jpeg and anything else Image() accepts
+- 'audio' : Loads .mp3, .ogg, .webm and anything else Audio() accepts
+
+**If a loader is not defined and your browser supports XHR requests, PreJS will attempt to load using that. (this is limited to same origin though, unless Allow-Cross-Origin headers are set)**
 
 ```js
 pre.load([url1, url2, url3], loader)
