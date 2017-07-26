@@ -1,6 +1,6 @@
 {
   "name": "prejs",
-  "version": "1.1.7",
+  "version": "1.2.5",
   "license": "ISC",
   "author": "Harry Parton <hparton@hotmail.co.uk>",
   "repository": {
@@ -8,7 +8,7 @@
     "url": "https://github.com/hparton/prejs.git"
   },
   "bugs": "https://github.com/HParton/Housekeeping-cli/issues",
-  "description": "Simple ES6 Vanilla JS preloader class for images/anything you want.",
+  "description": "A lightweight preloading javascript library for images, video and audio without any dependencies.",
   "main": "./dist/loader.js",
   "scripts": {
     "testing": "webpack test/test.js test/test-processed.js",

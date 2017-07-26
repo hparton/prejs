@@ -1,6 +1,6 @@
 # PreJS [![npm version](https://badge.fury.io/js/prejs.svg)](https://badge.fury.io/js/prejs)
 
-A lightweight preloading javascript library without any dependencies.
+A lightweight preloading javascript library for images, video and audio without any dependencies.
 
 ## Installation
 
@@ -28,14 +28,33 @@ pre.load(imageUrls, 'image');
 
 ## Events
 
-| Event     | Returns       		| Description                                                                          |
-|-----------|-----------------------|--------------------------------------------------------------------------------------|
-| start     |               		| Fired when attempting to load the first item							               |
-| loaded    | item (object)  		| Fired after each item is loaded		                                               |
-| progress  | progress 0-1 (number) | Fired whenever the progress of the loader increases	                      	       |
-| error     | item (object)  		| Fired after an item fails to load correctly									 	   |
-| complete  | items (array)  		| Fired when all items loaded or errored out                                           |
+#### 'start'
+Fired when the loader attempts to load the first item.
 
+#### 'loaded'
+Fired when an individual item is finished loading in, use this if you want a progressive indiciation of items loading.<br>
+**Returns:** *[item](#item)*
+
+#### 'error'
+Fired when an individual item is fails to load, you can use this to handle image fallbacks.<br>
+**Returns:** *[item](#item)*
+
+#### 'progress'
+Fired when the overall loader progress increases (due to an item loading/partially loading).<br>
+**Returns:** *progress (number between 0 - 1)*
+
+#### 'complete'
+Fired when all items have either loaded or errored out.<br>
+**Returns** *array of [items](#item)*
+
+---
+
+##### Item
+| key       | value                 | Description 										                                               |
+|-----------|-----------------------|--------------------------------------------------------------------------------------------------|
+| url		| string				| The original url given to the loader 				   											   |
+| progress  | number				| A value between 0 - 1 showing the percentage loaded  											   |
+| asset		| HTML element			| Returns a html element (img, audio, video, etc..), this can be modified and appended to the page |
 
 ## API
 
@@ -43,16 +62,25 @@ pre.load(imageUrls, 'image');
 Accepts an array of urls and a loader type to handle them.
 
 Built in loaders are:
-- 'image' : Loads .jpg, .png, .svg, .jpeg and anything else Image() accepts
-- 'audio' : Loads .mp3, .ogg, .webm and anything else Audio() accepts
 
-**If a loader is not defined and your browser supports XHR requests, PreJS will attempt to load using that. (this is limited to same origin though, unless Allow-Cross-Origin headers are set)**
+##### 'image'
+Loads .jpg, .png, .svg, .jpeg and anything else Image() accepts. Uses the Image() element to load in files.
+
+##### 'audio'
+Loads .mp3, .ogg, .wave and anything else Audio() accepts. Uses the Audio() element to load in files.
+
+##### 'video'
+Loads .mp4, .ogv, .webm files. Uses XMLHttpRequest to grab the full video, this unfortunately means that its IE10+ and restricted to same origin
+unless the host has the correct Cross-Origin headers set.
+
+**If a loader is not defined explicitly, PreJS will attempt to figure out which loader to use based on the file extension.**
 
 ```js
-pre.load([url1, url2, url3], loader)
-
 // loader can be a string:
 pre.load([url1, url2, url3], 'image')
+
+// loader can be undefined and PreJS will guess:
+pre.load([url1, url2, url3])
 
 // or your own function:
 pre.load([url1, url2, url3], (item) => {
@@ -63,7 +91,7 @@ pre.load([url1, url2, url3], (item) => {
 })
 ```
 
-#### on(event)
+#### on(event, cb)
 Add an event listener to different events.
 
 ```js
@@ -72,11 +100,11 @@ pre.on('loaded', (item) => {
 })
 ```
 
-#### trigger(event)
-Trigger all event listeners for an event.
+#### dispatch(event)
+Dispatch all event listeners for an event.
 
 ```js
-pre.trigger('loaded', item)
+pre.dispatch('loaded', item)
 ```
 
 ### Example:
@@ -92,12 +120,14 @@ pre.on('start', () => {
 
 pre.on('loaded', (item) => {
 	console.log('loaded:', item)
+	document.body.appendChild(item.asset)
 	// pre.progress (0 - 1) is available if you wanted to show a custom loading indicator, you can update it here
 })
 
-pre.on('complete', () => {
+pre.on('complete', (items) => {
+	console.log(items)
 	console.log('All items pre-loaded, you can do a cb here.')
 })
 
-pre.load(imageUrls, 'image')
+pre.load(imageUrls)
 ```
