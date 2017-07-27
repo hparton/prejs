@@ -29,7 +29,7 @@ class PreJS {
   _setupItems (items) {
     let processed = []
 
-    for (var i = 0; i < processed.length; i++) {
+    for (var i = 0; i < items.length; i++) {
       processed.push({
         url: items[i],
         progress: 0,
