@@ -1,5 +1,3 @@
-# PreJS [![npm version](https://badge.fury.io/js/prejs.svg)](https://badge.fury.io/js/prejs)
-
 <p align="center"><img width="250" src="https://user-images.githubusercontent.com/5281898/28754919-f3b59eea-7546-11e7-9b31-fda336e3bdb1.png" alt="PreJS"></p>
 
 <p align="center">
@@ -60,11 +58,12 @@ Fired when all items have either loaded or errored out.<br>
 ---
 
 ##### Item
-| key       | value                 | Description 										                                               |
-|-----------|-----------------------|--------------------------------------------------------------------------------------------------|
-| url		| string				| The original url given to the loader 				   											   |
-| progress  | number				| A value between 0 - 1 showing the percentage loaded  											   |
-| asset		| HTML element			| Returns a html element (img, audio, video, etc..), this can be modified and appended to the page |
+
+| key | value | description |
+| --- | --- | --- |
+| url | string | The original url given to the loader |
+| progress | number | A value between 0 - 1 showing the percentage loaded |
+| asset | HTMLElement | Returns a html element (img, audio, video, etc..), this can be modified and appended to the page |
 
 ## API
 
