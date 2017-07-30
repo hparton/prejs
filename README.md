@@ -1,6 +1,16 @@
 # PreJS [![npm version](https://badge.fury.io/js/prejs.svg)](https://badge.fury.io/js/prejs)
 
-A lightweight preloading javascript library for images, video and audio without any dependencies.
+<p align="center"><img width="250" src="https://user-images.githubusercontent.com/5281898/28754919-f3b59eea-7546-11e7-9b31-fda336e3bdb1.png" alt="PreJS"></p>
+
+<p align="center">
+  <a href="https://www.npmjs.com/package/prejs"><img src="https://badge.fury.io/js/prejs.svg" alt="npm version"></a>
+  <a href="https://github.com/hparton/prejs/issues"><img src="https://img.shields.io/badge/issues-0-brightgreen.svg" alt="issues"></a>
+  <a href="#"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="prs"></a>
+</p>
+
+## Introduction
+
+PreJS is a lightweight preloading javascript library for images, video and audio without any dependencies.
 
 ## Installation
 
@@ -23,7 +33,7 @@ import PreJS from 'prejs';
 const pre = new PreJS();
 
 let imageUrls = ['example.jpg', 'example.png', 'example.svg'];
-pre.load(imageUrls, 'image');
+pre.load(imageUrls);
 ```
 
 ## Events
