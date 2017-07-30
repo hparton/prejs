@@ -26,12 +26,32 @@ $ yarn add prejs
 
 ## Usage
 
-```js
-import PreJS from 'prejs';
-const pre = new PreJS();
+<p align="center"><img src="https://user-images.githubusercontent.com/5281898/28755106-16fc4346-754b-11e7-91d7-e9cfe7fda9c9.gif" alt=""></p>
 
-let imageUrls = ['example.jpg', 'example.png', 'example.svg'];
-pre.load(imageUrls);
+```js
+import PreJS from 'prejs'
+
+let $progress = document.querySelector('.progress')
+
+let pre = new PreJS()
+let images = [
+  'http://i.imgur.com/Wo0Kyth.jpg',
+  'http://i.imgur.com/5pKVfC1.jpg',
+  'http://i.imgur.com/1yK4wnx.gif',
+  'http://i.imgur.com/GsBSYth.mp4',
+  'http://i.imgur.com/YUxVkvN.png',
+  'http://i.imgur.com/68Tnk5j.jpg',
+]
+
+pre.on('start', () => {
+  console.log('Starting')
+})
+
+pre.on('progress', progress => {
+  $progress.style.width = progress * 100 + '%'
+})
+
+pre.load(images)
 ```
 
 ## Events
@@ -114,29 +134,4 @@ Dispatch all event listeners for an event.
 
 ```js
 pre.dispatch('loaded', item)
-```
-
-### Example:
-```js
-import PreJS from 'prejs'
-
-const pre = new PreJS()
-let imageUrls = ['example.jpg', 'example.png', 'example.svg']
-
-pre.on('start', () => {
-	console.log('Started preloading items')
-})
-
-pre.on('loaded', (item) => {
-	console.log('loaded:', item)
-	document.body.appendChild(item.asset)
-	// pre.progress (0 - 1) is available if you wanted to show a custom loading indicator, you can update it here
-})
-
-pre.on('complete', (items) => {
-	console.log(items)
-	console.log('All items pre-loaded, you can do a cb here.')
-})
-
-pre.load(imageUrls)
 ```
