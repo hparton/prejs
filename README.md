@@ -57,7 +57,7 @@ Fired when all items have either loaded or errored out.<br>
 
 ---
 
-##### Item
+##### Item
 
 | key | value | description |
 | --- | --- | --- |
